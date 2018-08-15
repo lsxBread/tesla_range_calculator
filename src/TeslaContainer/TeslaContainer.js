@@ -6,6 +6,7 @@ import TeslaRange from '../TeslaRange/TeslaRange'
 import TeslaCounter from '../TeslaCounter/TeslaCounter'
 import TeslaClimate from '../TeslaClimate/TeslaClimate'
 import TeslaWheels from '../TeslaWheels/TeslaWheels'
+import batterData from '../Mockup/batter-data.js'
 
 class TeslaContainer extends React.Component {
   constructor(props) {
@@ -15,19 +16,14 @@ class TeslaContainer extends React.Component {
     this.increase = this.increase.bind(this)
     this.decrease = this.decrease.bind(this)
     this.switchSize = this.switchSize.bind(this)
+    this.carRangeUpdate = this.carRangeUpdate.bind(this)
+    this.calculateCarRange = this.calculateCarRange.bind(this)
 
     this.state = {
-      carRange: [
-        {model: '60', value: 273},
-        {model: '60d', value: 273},
-        {model: '75', value: 273},
-        {model: '75d', value: 273},
-        {model: '90d', value: 273},
-        {model: 'p100d', value: 273},
-      ],
+      carRange: [],
       controller: {
-        speed: 45,
-        temperature: 10,
+        speed: 55,
+        temperature: 20,
         isClimateOn: true,
         wheelSize: 19
       },
@@ -58,34 +54,57 @@ class TeslaContainer extends React.Component {
     }
   }
 
-  increase (type) {
+  calculateCarRange = (models, controller) => {
+    console.log("!!!!!!!!!!!!!!!!!!!!!")
+    return models.map((model) => {
+      const {speed, temperature, isClimateOn, wheelSize} = controller
+      const value = batterData[model][wheelSize][isClimateOn ? 'on' : 'off'].speed[speed][temperature]
+      return {
+        model,
+        value,
+      }
+    })
+  }
+
+  carRangeUpdate = () => {
+    const teslaModels = ['60', '60D', '75', '75D', '90D', 'P100D']
+    this.setState({
+      carRange: this.calculateCarRange(teslaModels, this.state.controller)
+    })
+  }
+
+  increase = (type) => {
     const controller = {...this.state.controller}
     const step = this.state.config[type].step
     controller[type] = controller[type] + step
-    this.setState({controller})
+    this.setState({controller}, () => {this.carRangeUpdate()})
   }
 
-  decrease (type) {
+  decrease = (type) => {
     const controller = {...this.state.controller}
     const step = this.state.config[type].step
     controller[type] = controller[type] - step
-    this.setState({controller})
+    this.setState({controller}, () => {this.carRangeUpdate()})
   }
 
-  toggleClimate () {
+  toggleClimate = () => {
     const controller = {...this.state.controller}
     controller.isClimateOn = !controller.isClimateOn
-    this.setState({controller})
+    this.setState({controller}, () => {this.carRangeUpdate()})
   }
 
-  switchSize (newSize) {
+  switchSize = (newSize) => {
     if (newSize === this.state.controller.wheelSize) {
       return
     } else {
       const controller = {...this.state.controller}
       controller.wheelSize = newSize
-      this.setState({controller})
+      this.setState({controller}, () => {this.carRangeUpdate()})
     }
+  }
+
+  componentDidMount = () => {
+    this.carRangeUpdate()
   }
 
 	render () {

@@ -54,7 +54,7 @@ module.exports = {
   bail: true,
   // We generate sourcemaps in production. This is slow but gives good results.
   // You can exclude the *.map files from the build during deployment.
-  devtool: shouldUseSourceMap ? 'source-map' : false,
+  // devtool: shouldUseSourceMap ? 'source-map' : false,
   // In production, we only want to load the polyfills and the app code.
   entry: [require.resolve('./polyfills'), paths.appIndexJs],
   output: {
@@ -186,9 +186,6 @@ module.exports = {
                       },
                     },
                     {
-                      loader: require.resolve('sass-loader'),
-                    },
-                    {
                       loader: require.resolve('postcss-loader'),
                       options: {
                         // Necessary for external CSS imports to work
@@ -208,6 +205,9 @@ module.exports = {
                         ],
                       },
                     },
+                    {
+                      loader: require.resolve('sass-loader'),
+                    }
                   ],
                 },
                 extractTextPluginOptions
