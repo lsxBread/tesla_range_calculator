@@ -1,6 +1,6 @@
 # Tesla Range Calculator - React
 
-### How to run the code
+### How to run the code
 
 1. Clone the repo
 2. cd to the repo
