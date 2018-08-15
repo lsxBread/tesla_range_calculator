@@ -102,10 +102,10 @@ class TeslaContainer extends React.Component {
     }
   }
 
-  componentDidMount = () => {
+  componentWillMount = () => {
     this.carRangeUpdate()
   }
-
+  
 	render () {
     const {carRange, controller, config} = this.state
 		return (
