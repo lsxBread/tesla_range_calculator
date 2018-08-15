@@ -1,0 +1,61 @@
+.tesla_counter {
+  float: left;
+  width: 230px;
+  .tesla_counter_title {
+    letter-spacing: 2px;
+    font-size: 16px;
+  }
+  .tesla_counter_wrapper {
+    margin: 10px 40px 0 0;
+    padding: 18px 0 0 30px;
+    position: relative;
+    height: 65px;
+    border: 1px solid #ccc;
+    background-color: #f7f7f7;
+    .tesla_counter_value {
+      font-family: 'RobotoRegular';
+      font-size: 25px;
+      line-height: 25px;
+      font-weight: 400;
+      position: relative;
+      span {
+        position: absolute;
+        top: 0;
+        left: 35px;
+        font-size: 15px;
+        text-transform: uppercase;
+      }
+    }
+    .tesla_counter_arrow {
+      position: absolute;
+      right: 10px;
+      top: 7px;
+      button {
+        outline: 0;
+        width: 30px;
+        color: #008dff;
+        cursor: pointer;
+        display: block;
+        padding: 11px 0;
+        vertical-align: middle;
+        border: 0;
+        background-size: 60%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-color: transparent;
+        &:disabled {
+          opacity: 0.4;
+          cursor: not-allowed;
+        }
+        &:first-child {
+          border-bottom: 1px solid #fff;
+          background-image: url('../assets/images/counter/up.svg');
+        }
+        &:last-child {
+          border-top: 1px solid #ccc;
+          background-image: url('../assets/images/counter/down.svg');
+        }
+      }
+    }
+  }
+}

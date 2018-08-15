@@ -9,14 +9,6 @@
       .car_range_icon {
         height: 20px;
       }
-      $list: 60 60d 75 75d 90d p100d;
-      @each $model in $list {
-        .car_range_icon_model_#{$model}{
-          background: url('../assets/images/model/#{$model}.svg') no-repeat center;
-          background-position: top right;
-          background-size: auto 13px;
-        }
-      }
       .car_range_value {
         font-size: 40px;
         font-weight: normal;
@@ -33,6 +25,15 @@
           position: absolute;
           top: 8px;
           right: 0;
+        }
+      }
+
+      $list: 60 60d 75 75d 90d p100d;
+      @each $model in $list {
+        .car_range_icon_model_#{$model}{
+          background: url('../assets/images/model/#{$model}.svg') no-repeat center;
+          background-position: top right;
+          background-size: auto 13px;
         }
       }
     }
