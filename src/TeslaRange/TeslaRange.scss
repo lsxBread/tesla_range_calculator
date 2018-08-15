@@ -1,0 +1,40 @@
+.tesla_car_range {
+  position: relative;
+  margin: -70px 0 30px;
+  ul {
+    display: flex;
+    justify-content: center;
+    li {
+      width: 130px;
+      .car_range_icon {
+        height: 20px;
+      }
+      $list: 60 60d 75 75d 90d p100d;
+      @each $model in $list {
+        .car_range_icon_model_#{$model}{
+          background: url('../assets/images/model/#{$model}.svg') no-repeat center;
+          background-position: top right;
+          background-size: auto 13px;
+        }
+      }
+      .car_range_value {
+        font-size: 40px;
+        font-weight: normal;
+        font-family: 'RobotoRegular';
+        display: block;
+        padding: 0 18px 0 0;
+        position: relative;
+        color: #008dff;
+        text-align: right;
+        &:after {
+          font-size: 14px;
+          font-family: 'RobotoRegular';
+          content: 'MI';
+          position: absolute;
+          top: 8px;
+          right: 0;
+        }
+      }
+    }
+  }
+}
