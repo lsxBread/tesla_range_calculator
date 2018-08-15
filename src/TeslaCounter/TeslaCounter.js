@@ -11,15 +11,17 @@ const TeslaCounter = (props) => (
         <span>{props.config.unit}</span>
       </div>
       <div className='tesla_counter_arrow'>
-        <button disabled={props.currentValue >= props.config.max}></button>
-        <button disabled={props.currentValue <= props.config.min}></button>
+        <button disabled={props.currentValue >= props.config.max} onClick={() => props.increase(props.config.type)}></button>
+        <button disabled={props.currentValue <= props.config.min} onClick={() => props.decrease(props.config.type)}></button>
       </div>
     </div>
   </div>
 )
 
 TeslaCounter.prototype = {
-  config: PropTypes.object
+  config: PropTypes.object,
+  increase: PropTypes.func,
+  decrease: PropTypes.func
 }
 
 export default TeslaCounter
