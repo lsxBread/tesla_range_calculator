@@ -5,6 +5,7 @@ import TeslaCar from '../TeslaCar/TeslaCar'
 import TeslaRange from '../TeslaRange/TeslaRange'
 import TeslaCounter from '../TeslaCounter/TeslaCounter'
 import TeslaClimate from '../TeslaClimate/TeslaClimate'
+import TeslaWheels from '../TeslaWheels/TeslaWheels'
 
 class TeslaContainer extends React.Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class TeslaContainer extends React.Component {
     this.toggleClimate = this.toggleClimate.bind(this)
     this.increase = this.increase.bind(this)
     this.decrease = this.decrease.bind(this)
+    this.switchSize = this.switchSize.bind(this)
 
     this.state = {
       carRange: [
@@ -48,6 +50,9 @@ class TeslaContainer extends React.Component {
         },
         climate: {
           limit: 20
+        },
+        wheels: {
+          title: 'Wheels'
         }
       }
     }
@@ -73,6 +78,16 @@ class TeslaContainer extends React.Component {
     this.setState({controller})
   }
 
+  switchSize (newSize) {
+    if (newSize === this.state.controller.wheelSize) {
+      return
+    } else {
+      const controller = {...this.state.controller}
+      controller.wheelSize = newSize
+      this.setState({controller})
+    }
+  }
+
 	render () {
     const {carRange, controller, config} = this.state
 		return (
@@ -87,17 +102,20 @@ class TeslaContainer extends React.Component {
             increase={this.increase}
             decrease={this.decrease}
           />
-          <TeslaCounter 
-            config={config.temperature} 
-            currentValue={controller.temperature}
-            increase={this.increase}
-            decrease={this.decrease}
-          />
-          <TeslaClimate 
-            isAccOn={controller.temperature >= config.climate.limit}
-            isClimateOn={controller.isClimateOn}
-            toggleClimate={this.toggleClimate}
-          />
+          <div className='tesla_climate_wrapper clearfix'>
+            <TeslaCounter 
+              config={config.temperature} 
+              currentValue={controller.temperature}
+              increase={this.increase}
+              decrease={this.decrease}
+            />
+            <TeslaClimate 
+              isAccOn={controller.temperature >= config.climate.limit}
+              isClimateOn={controller.isClimateOn}
+              toggleClimate={this.toggleClimate}
+            />
+          </div>
+          <TeslaWheels config={config.wheels} wheelSize={controller.wheelSize} switchSize={this.switchSize}/>
         </div>
         <TeslaNotice />
 			</div>
