@@ -55,10 +55,9 @@ class TeslaContainer extends React.Component {
   }
 
   calculateCarRange = (models, controller) => {
-    console.log("!!!!!!!!!!!!!!!!!!!!!")
     return models.map((model) => {
       const {speed, temperature, isClimateOn, wheelSize} = controller
-      const value = batterData[model][wheelSize][isClimateOn ? 'on' : 'off'].speed[speed][temperature]
+      const value = batterData[model.toUpperCase()][wheelSize][isClimateOn ? 'on' : 'off'].speed[speed][temperature]
       return {
         model,
         value,
@@ -67,7 +66,7 @@ class TeslaContainer extends React.Component {
   }
 
   carRangeUpdate = () => {
-    const teslaModels = ['60', '60D', '75', '75D', '90D', 'P100D']
+    const teslaModels = ['60', '60d', '75', '75d', '90d', 'p100d']
     this.setState({
       carRange: this.calculateCarRange(teslaModels, this.state.controller)
     })
