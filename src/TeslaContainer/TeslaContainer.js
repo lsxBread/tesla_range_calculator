@@ -4,10 +4,12 @@ import TeslaNotice from '../TeslaNotice/TeslaNotice'
 import TeslaCar from '../TeslaCar/TeslaCar'
 import TeslaRange from '../TeslaRange/TeslaRange'
 import TeslaCounter from '../TeslaCounter/TeslaCounter'
+import TeslaClimate from '../TeslaClimate/TeslaClimate'
 
 class TeslaContainer extends React.Component {
   constructor(props) {
     super(props)
+    this.toggleClimate = this.toggleClimate.bind(this)
     this.state = {
       carRange: [
         {model: '60', value: 273},
@@ -19,12 +21,11 @@ class TeslaContainer extends React.Component {
       ],
       controller: {
         speed: 45,
-        temperature: 20,
-        accOn: true,
-        underTwentyDegree: false,
+        temperature: 10,
+        isClimateOn: true,
         wheelSize: 19
       },
-      conterConfig: {
+      config: {
         speed: {
           title: 'Speed',
           unit: 'MPH',
@@ -36,21 +37,35 @@ class TeslaContainer extends React.Component {
           unit: '°',
           min: -10,
           max: 40
+        },
+        climate: {
+          limit: 20
         }
       }
     }
   }
 
+  toggleClimate () {
+    const controller = {...this.state.controller}
+    controller.isClimateOn = !controller.isClimateOn
+    this.setState({controller})
+  }
+
 	render () {
-    const {carRange, controller, conterConfig} = this.state
+    const {carRange, controller, config} = this.state
 		return (
 			<div className='tesla_container'>
 				<h1>Range Per Charge</h1>
         <TeslaCar wheelSize={controller.wheelSize} teslaSpeed={controller.speed}/>
         <TeslaRange carRange={carRange}/>
         <div className='tesla_controller clearfix'>
-          <TeslaCounter config={conterConfig.speed} currentValue={controller.speed}/>
-          <TeslaCounter config={conterConfig.temperature} currentValue={controller.temperature}/>
+          <TeslaCounter config={config.speed} currentValue={controller.speed}/>
+          <TeslaCounter config={config.temperature} currentValue={controller.temperature}/>
+          <TeslaClimate 
+            isAccOn={controller.temperature >= config.climate.limit}
+            isClimateOn={controller.isClimateOn}
+            toggleClimate={this.toggleClimate}
+          />
         </div>
         <TeslaNotice />
 			</div>

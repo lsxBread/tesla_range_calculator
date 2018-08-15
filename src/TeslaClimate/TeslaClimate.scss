@@ -1,0 +1,42 @@
+.tesla_climate {
+  float: left;
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+  border: 6px solid #f7f7f7;
+  border-radius: 50%;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+  color: #666;
+  .tesla_climate_title {
+    margin: 14px 0 0;
+    text-align: center;
+    font-size: 10px;
+  }
+  .tesla_climate_icon {
+    display: block;
+    width: 22px;
+    height: 22px;
+    margin: 8px auto 0;
+    background-repeat: no-repeat;
+    background-position: center;
+    background: url('../assets/images/climate/heat-off.svg');
+  }
+}
+.tesla_climate.tesla_climate_accActive {
+  .tesla_climate_icon {
+    background: url('../assets/images/climate/ac-off.svg');
+  }
+}
+.tesla_climate_active {
+  color: #fff;
+  background: linear-gradient(to bottom, #d64800 0%, #d20200 100%);
+  .tesla_climate_icon {
+    background: url('../assets/images/climate/heat-on.svg');
+  }
+}
+.tesla_climate_active.tesla_climate_accActive {
+  background: linear-gradient(to bottom, #33a0ff 0%, #388bff 100%);
+  .tesla_climate_icon {
+    background: url('../assets/images/climate/ac-on.svg');
+  }
+}
